@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bodas de Ouro · Jomar &amp; Orlando</title>
+<meta name="description" content="19 de dezembro de 2026, às 19h · Toque para abrir o convite.">
+
+<!-- Pré-visualização no WhatsApp: endereço do GitHub Pages -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bodas de Ouro · Jomar &amp; Orlando">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:url" content="https://vinnyedicao.github.io/bodas-jomar-e-orlando/">
+<meta property="og:title" content="Bodas de Ouro · Jomar &amp; Orlando">
+<meta property="og:description" content="19 de dezembro de 2026, às 19h · Toque para abrir o convite.">
+<meta property="og:image" content="https://vinnyedicao.github.io/bodas-jomar-e-orlando/img/og.jpg">
+<meta property="og:image:secure_url" content="https://vinnyedicao.github.io/bodas-jomar-e-orlando/img/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="639">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#F3F0EA">
+<link rel="icon" href="img/og.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="img/capa.jpg" as="image">
+
+<style>
+  :root{ --papel:#F3F0EA; --verde:#6E7B57; --ouro:#A8853C; --ouro-claro:#C9A85A; --texto:#8A6E35; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--papel);height:100%}
+  body{font-family:"Cormorant Garamond",Georgia,serif;color:var(--texto);-webkit-tap-highlight-color:transparent}
+
+  /* ---------- Capa e animação (formato stories) ---------- */
+  .tela{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--papel);z-index:10;transition:opacity .9s ease}
+  .tela.oculta{opacity:0;pointer-events:none}
+  .quadro{position:relative;height:100%;width:100%;max-width:calc(100vh * 9 / 16);max-height:calc(100vw * 16 / 9)}
+  .quadro img,.quadro video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .fundo{position:absolute;inset:-60px;background:url(img/capa.jpg) center/cover;filter:blur(28px) saturate(.9);opacity:.9}
+  #animacao{background:#fff}
+  #animacao .fundo{transition:opacity 9s linear}
+  #animacao.tocando .fundo{opacity:0}
+  #capa{cursor:pointer}
+  #capa .pulso{position:absolute;left:50%;top:57.5%;width:46%;height:6%;transform:translate(-50%,-50%);border-radius:40px;animation:pulso 2.2s ease-in-out infinite}
+  @keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(201,168,90,0)}50%{box-shadow:0 0 26px 4px rgba(201,168,90,.2)}}
+  #pular{position:absolute;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));padding:8px 14px;border:1px solid rgba(168,133,60,.5);border-radius:30px;background:rgba(243,240,234,.7);color:var(--ouro);font:500 15px "Cormorant Garamond",serif;letter-spacing:.08em;opacity:0;transition:opacity .6s}
+  #animacao.mostra-pular #pular{opacity:1}
+  #brilho{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:20;transition:opacity .7s ease}
+
+  /* ---------- Convite ---------- */
+  #convite{max-width:540px;margin:0 auto;background:var(--papel) url(img/papel.jpg) repeat;background-size:320px auto;opacity:0;transition:opacity .8s ease}
+  #convite.visivel{opacity:1}
+  .faixa{position:relative;width:100%}
+  .arte{position:relative;overflow:hidden}
+  .flor-mov{position:absolute;height:auto;pointer-events:none;opacity:0;transition:opacity 1.6s ease;will-change:transform;z-index:2}
+  .flor-mov.aparece{opacity:1}
+  .ponto{z-index:3}
+  .faixa canvas{display:block;width:100%;height:auto}
+  .ponto{position:absolute;left:50%;width:17.6%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;cursor:pointer;display:block}
+  .ponto:focus-visible{outline:2px solid var(--ouro);outline-offset:4px}
+  .ponto::after{content:"";position:absolute;inset:0;border-radius:50%;animation:pulso 2.4s ease-in-out infinite}
+
+  /* contagem regressiva */
+  .contagem{padding:34px 20px 54px;text-align:center;opacity:0;transform:translateY(18px);transition:opacity 1.2s ease,transform 1.2s ease}
+  .contagem.revelada{opacity:1;transform:none}
+  .contagem h2{font-family:"Pinyon Script",cursive;font-weight:400;color:var(--verde);font-size:clamp(40px,11vw,56px);line-height:1.1}
+  .contagem h2 span{font-family:"Cormorant Garamond",serif;font-size:.4em;vertical-align:middle;margin:0 .5em}
+  .contagem p{margin-top:6px;font-size:17px;letter-spacing:.14em;text-transform:uppercase}
+  .relogio{display:flex;justify-content:center;gap:clamp(8px,3vw,18px);margin-top:26px}
+  .unidade{min-width:clamp(62px,19vw,92px);padding:14px 4px 10px;border-top:1px solid var(--ouro-claro);border-bottom:1px solid var(--ouro-claro)}
+  .unidade b{display:block;font-weight:500;font-size:clamp(34px,10vw,48px);line-height:1;color:var(--verde);font-variant-numeric:lining-nums tabular-nums}
+  .unidade small{display:block;margin-top:8px;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+  .chegou{display:none;margin-top:22px;font-family:"Pinyon Script",cursive;font-size:40px;color:var(--ouro)}
+
+  /* botão de música */
+  #som{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:30;width:46px;height:46px;border-radius:50%;border:1px solid rgba(168,133,60,.45);background:rgba(243,240,234,.88);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 14px rgba(90,70,30,.15)}
+  #som.ativo{display:flex}
+  #som svg{width:22px;height:22px;fill:none;stroke:var(--ouro);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+  #som .off{display:none} #som.mudo .on{display:none} #som.mudo .off{display:block}
+</style>
+</head>
+<body>
+
+<!-- 1. Capa no formato stories -->
+<div id="capa" class="tela" role="button" aria-label="Toque para abrir o convite" tabindex="0">
+  <div class="fundo"></div>
+  <div class="quadro">
+    <img src="img/capa.jpg" alt="Alianças douradas · Toque para abrir">
+    <div class="pulso"></div>
+  </div>
+</div>
+
+<!-- 2. Animação -->
+<div id="animacao" class="tela oculta">
+  <div class="fundo"></div>
+  <div class="quadro">
+    <video id="video" src="animacao.mp4" poster="img/poster.jpg" muted playsinline preload="auto"></video>
+    <button id="pular" type="button">Pular ›</button>
+  </div>
+</div>
+<div id="brilho"></div>
+
+<audio id="musica" src="musica.mp3" preload="auto" loop></audio>
+<button id="som" type="button" aria-label="Pausar música">
+  <svg class="on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>
+  <svg class="off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 10l4 4M21 10l-4 4"/></svg>
+</button>
+
+<!-- 3. Convite: cada faixa é revelada com pinceladas de aquarela -->
+<main id="convite" hidden>
+  <div class="arte" id="arte-nomes">
+  <div class="faixa" data-img="img/nomes.jpg" data-y="0"    data-h="640"  aria-label="Monograma J O e versículo de Colossenses 3:14"></div>
+  <div class="faixa" data-img="img/nomes.jpg" data-y="640"  data-h="1140" aria-label="Foto de Jomar e Orlando"></div>
+  <div class="faixa" data-img="img/nomes.jpg" data-y="1780" data-h="667"  aria-label="Jomar e Orlando convidam para a celebração de suas bodas de ouro. Sua presença é fundamental para nós."></div>
+  </div>
+
+  <section class="contagem" aria-label="Contagem regressiva">
+    <h2><span>•</span>Faltam<span>•</span></h2>
+    <p>para o nosso grande dia</p>
+    <div class="relogio" id="relogio">
+      <div class="unidade"><b id="d">--</b><small>dias</small></div>
+      <div class="unidade"><b id="h">--</b><small>horas</small></div>
+      <div class="unidade"><b id="m">--</b><small>min</small></div>
+      <div class="unidade"><b id="s">--</b><small>seg</small></div>
+    </div>
+    <div class="chegou" id="chegou">Chegou o grande dia!</div>
+  </section>
+
+  <div class="arte" id="arte-info">
+  <div class="faixa" data-img="img/info.jpg" data-y="0"    data-h="520" aria-label="Sábado, 19 de dezembro de 2026, às 19h"></div>
+  <div class="faixa" data-img="img/info.jpg" data-y="520"  data-h="810" aria-label="Localização: Cerimonial Caminho das Árvores, Alameda das Framboesas, 151, Caminho das Árvores, Salvador - BA">
+    <a class="ponto" style="top:75.4%" target="_blank" rel="noopener" aria-label="Abrir localização no mapa"
+       href="https://www.google.com/maps/search/?api=1&query=Cerimonial+Caminho+das+%C3%81rvores%2C+Alameda+das+Framboesas%2C+151%2C+Salvador+-+BA"></a>
+  </div>
+  <div class="faixa" data-img="img/info.jpg" data-y="1330" data-h="400" aria-label="Dress code: social / passeio completo"></div>
+  <div class="faixa" data-img="img/info.jpg" data-y="1730" data-h="571" aria-label="Sugestão de presentes: doação de fraldas geriátricas"></div>
+  </div>
+
+  <div class="arte" id="arte-rsvp">
+  <div class="faixa" data-img="img/rsvp.jpg" data-y="0" data-h="760" aria-label="Confirme sua presença">
+    <a class="ponto" style="top:74.6%" target="_blank" rel="noopener" aria-label="Confirmar presença"
+       href="https://docs.google.com/forms/d/e/1FAIpQLSf6-up94RUNo3wBaYVuxgXql93H-wNI0O4A2UJwRNsk_JWnhw/viewform"></a>
+  </div>
+  <div class="faixa" data-img="img/rsvp.jpg" data-y="760" data-h="1724" aria-label="Foto de Jomar e Orlando"></div>
+  </div>
+</main>
+
+<script>
+(function(){
+  var capa=document.getElementById('capa'), anim=document.getElementById('animacao'),
+      video=document.getElementById('video'), brilho=document.getElementById('brilho'),
+      convite=document.getElementById('convite'), musica=document.getElementById('musica'),
+      som=document.getElementById('som'), aberto=false, terminou=false;
+  var semMovimento=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  try{ video.load(); }catch(e){}
+
+  /* ---------- música ---------- */
+  function fadeIn(){
+    musica.volume=0; var v=0;
+    var t=setInterval(function(){ v+=0.05; musica.volume=Math.min(v,0.85); if(v>=0.85) clearInterval(t); },150);
+  }
+  function tocar(){
+    var p=musica.play();
+    if(p&&p.then) p.then(function(){ som.classList.add('ativo'); fadeIn(); }).catch(function(){ som.classList.add('ativo','mudo'); });
+    else som.classList.add('ativo');
+  }
+  som.addEventListener('click',function(){
+    if(musica.paused){ musica.play(); som.classList.remove('mudo'); som.setAttribute('aria-label','Pausar música'); }
+    else { musica.pause(); som.classList.add('mudo'); som.setAttribute('aria-label','Tocar música'); }
+  });
+  document.addEventListener('visibilitychange',function(){
+    if(document.hidden && !musica.paused){ musica.pause(); musica.dataset.retomar='1'; }
+    else if(!document.hidden && musica.dataset.retomar){ musica.play(); delete musica.dataset.retomar; }
+  });
+
+  /* ---------- abertura ---------- */
+  function abrir(){
+    if(aberto) return; aberto=true;
+    tocar();                       // precisa acontecer dentro do toque
+    anim.classList.remove('oculta'); capa.classList.add('oculta');
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ anim.classList.add('tocando'); }); });
+    var p=video.play();
+    if(p&&p.catch) p.catch(function(){ mostrarConvite(); });
+    setTimeout(function(){ anim.classList.add('mostra-pular'); },1500);
+    setTimeout(mostrarConvite,14000);
+  }
+  function mostrarConvite(){
+    if(terminou) return; terminou=true;
+    brilho.style.opacity='1';
+    setTimeout(function(){
+      convite.hidden=false; window.scrollTo(0,0);
+      anim.classList.add('oculta'); try{ video.pause(); }catch(e){}
+      requestAnimationFrame(function(){ convite.classList.add('visivel'); iniciarAquarela(); });
+      brilho.style.opacity='0';
+      setTimeout(function(){ capa.remove(); anim.remove(); },1000);
+    },650);
+  }
+  capa.addEventListener('click',abrir);
+  capa.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); abrir(); } });
+  video.addEventListener('ended',mostrarConvite);
+  document.getElementById('pular').addEventListener('click',mostrarConvite);
+
+  /* ---------- aquarela: revela cada faixa com pinceladas ---------- */
+  var imagens={};
+  function carregar(src){
+    if(!imagens[src]){ imagens[src]=new Promise(function(ok){ var i=new Image(); i.onload=function(){ ok(i); }; i.src=src; }); }
+    return imagens[src];
+  }
+  var LARG=1080;
+  document.querySelectorAll('.faixa').forEach(function(f){
+    var h=+f.dataset.h, c=document.createElement('canvas');
+    c.width=LARG; c.height=h; f.style.aspectRatio=LARG+' / '+h;
+    f.insertBefore(c,f.firstChild); f._canvas=c;
+    carregar(f.dataset.img);
+  });
+
+  function pintar(f){
+    if(f._pintada) return; f._pintada=true;
+    carregar(f.dataset.img).then(function(img){
+      var c=f._canvas, ctx=c.getContext('2d'), W=c.width, H=c.height, y0=+f.dataset.y;
+      function inteira(){ ctx.globalCompositeOperation='source-over'; ctx.clearRect(0,0,W,H); ctx.drawImage(img,0,y0,W,H,0,0,W,H); }
+      if(semMovimento){ inteira(); return; }
+
+      var m=document.createElement('canvas'); m.width=W; m.height=H; var mc=m.getContext('2d');
+      // pinceladas horizontais, alternando o sentido, de cima para baixo
+      var faixas=Math.max(2,Math.ceil(H/150)), pinc=[], DUR=1500, ATRASO=200;
+      for(var i=0;i<faixas;i++){
+        pinc.push({ y:(i+0.5)*H/faixas, esq:i%2===0, ini:i*ATRASO, ultimo:-1,
+                    onda:Math.random()*6, amp:18+Math.random()*22, r:H/faixas*0.95+30 });
+      }
+      var total=(faixas-1)*ATRASO+DUR, t0=null;
+
+      function borrao(x,y,r){
+        // várias manchas suaves e irregulares = efeito de tinta se espalhando
+        for(var k=0;k<3;k++){
+          var rx=x+(Math.random()-.5)*r*.7, ry=y+(Math.random()-.5)*r*.6, rr=r*(.55+Math.random()*.6);
+          var g=mc.createRadialGradient(rx,ry,rr*.15,rx,ry,rr);
+          g.addColorStop(0,'rgba(0,0,0,.55)'); g.addColorStop(.6,'rgba(0,0,0,.28)'); g.addColorStop(1,'rgba(0,0,0,0)');
+          mc.fillStyle=g; mc.beginPath(); mc.arc(rx,ry,rr,0,6.283); mc.fill();
+        }
+      }
+      function quadro(t){
+        if(t0===null) t0=t;
+        var dt=t-t0;
+        pinc.forEach(function(p){
+          var prog=Math.min(1,Math.max(0,(dt-p.ini)/DUR));
+          if(prog<=0) return;
+          prog=1-Math.pow(1-prog,2.2);                 // desacelera no fim, como pincel
+          var alvo=Math.floor(prog*40);
+          for(var s=p.ultimo+1;s<=alvo;s++){
+            var u=s/40, x=-120+u*(W+240); if(!p.esq) x=W-x;
+            var y=p.y+Math.sin(u*5+p.onda)*p.amp;
+            borrao(x,y,p.r);
+          }
+          p.ultimo=alvo;
+        });
+        // camada final: completa o que sobrou, suavemente
+        var fim=Math.min(1,Math.max(0,(dt-total+300)/700));
+        ctx.globalCompositeOperation='source-over'; ctx.clearRect(0,0,W,H);
+        ctx.drawImage(img,0,y0,W,H,0,0,W,H);
+        ctx.globalCompositeOperation='destination-in';
+        ctx.drawImage(m,0,0);
+        if(fim>0){ ctx.globalCompositeOperation='source-over'; ctx.globalAlpha=fim; ctx.drawImage(img,0,y0,W,H,0,0,W,H); ctx.globalAlpha=1; }
+        if(fim<1) requestAnimationFrame(quadro); else inteira();
+      }
+      requestAnimationFrame(quadro);
+    });
+  }
+
+  function iniciarAquarela(){
+    var faixas=document.querySelectorAll('.faixa'), cont=document.querySelector('.contagem');
+    if(!('IntersectionObserver' in window)){ faixas.forEach(pintar); cont.classList.add('revelada'); return; }
+    var obs=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        if(e.target===cont) cont.classList.add('revelada'); else pintar(e.target);
+        obs.unobserve(e.target);
+      });
+    },{threshold:0.2});
+    faixas.forEach(function(f){ obs.observe(f); }); obs.observe(cont);
+  }
+
+
+  /* ---------- flores: balançam com a rolagem (mola amortecida) ---------- */
+  (function(){
+    var flores=[].slice.call(document.querySelectorAll('.flor-mov'));
+    if(!flores.length) return;
+    var est=flores.map(function(el,i){ return {el:el, a:0, v:0, s:el.dataset.lado==='l'?1:-1, base:+(el.dataset.base||0), flip:el.dataset.flip==='1'?' scaleX(-1)':'', fase:i*1.7, k:0.016+0.004*(i%3), vis:false}; });
+    var ultY=window.scrollY, ultT=performance.now(), impulso=0;
+    window.addEventListener('scroll',function(){
+      var t=performance.now(), y=window.scrollY, dt=Math.max(8,t-ultT);
+      impulso+=Math.max(-3,Math.min(3,(y-ultY)/dt));   // velocidade da rolagem
+      ultY=y; ultT=t;
+    },{passive:true});
+    if('IntersectionObserver' in window){
+      var ob=new IntersectionObserver(function(es){ es.forEach(function(e){
+        var st=est[flores.indexOf(e.target)]; st.vis=e.isIntersecting;
+        if(e.isIntersecting) e.target.classList.add('aparece');
+      }); },{rootMargin:'80px 0px'});
+      flores.forEach(function(f){ ob.observe(f); });
+    } else est.forEach(function(st){ st.vis=true; st.el.classList.add('aparece'); });
+    var t0=performance.now();
+    (function passo(t){
+      var tempo=(t-t0)/1000, imp=impulso; impulso*=0.0;
+      est.forEach(function(st){
+        if(!st.vis) return;
+        // empurrão da rolagem + mola que puxa de volta + atrito
+        st.v+= imp*0.55*st.s - st.k*st.a - 0.05*st.v;
+        st.a+= st.v;
+        st.a=Math.max(-5,Math.min(5,st.a));
+        var brisa=semMovimento?0:Math.sin(tempo*0.9+st.fase)*0.7*st.s;
+        st.el.style.transform='rotate('+(st.base+(semMovimento?0:st.a+brisa)).toFixed(2)+'deg)'+st.flip;
+      });
+      requestAnimationFrame(passo);
+    })(t0);
+  })();
+
+  /* ---------- contagem regressiva: 19/12/2026 às 19h (Salvador) ---------- */
+  var alvo=new Date('2026-12-19T19:00:00-03:00').getTime();
+  function dois(n){ return (n<10?'0':'')+n; }
+  (function atualiza(){
+    var r=alvo-Date.now();
+    if(r<=0){ document.getElementById('relogio').style.display='none'; document.getElementById('chegou').style.display='block'; return; }
+    var s=Math.floor(r/1000);
+    document.getElementById('d').textContent=Math.floor(s/86400);
+    document.getElementById('h').textContent=dois(Math.floor(s%86400/3600));
+    document.getElementById('m').textContent=dois(Math.floor(s%3600/60));
+    document.getElementById('s').textContent=dois(s%60);
+    setTimeout(atualiza,1000);
+  })();
+})();
+</script>
+</body>
+</html>
